@@ -26,4 +26,11 @@ class User < ApplicationRecord
     def downcase_email
         self.email = email.downcase
     end
+
+    MAILER_FROM_EMAIL = "no-reply@example.com"
+  ...
+    def send_confirmation_email!
+        confirmation_token = generate_confirmation_token
+        UserMailer.confirmation(self, confirmation_token).deliver_now
+    end
 end
